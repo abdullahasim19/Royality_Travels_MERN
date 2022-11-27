@@ -11,6 +11,13 @@ html {
 body {
   margin: 0;
   background: #4d4d4d;
+
+  background-image: url("images/main.jpg");
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment:fixed;
 }
 
 .slide-in-left-enter {

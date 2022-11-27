@@ -4,10 +4,17 @@ import Input from '../components/FormElements/Input';
 import {VALIDATOR_EMAIL,VALIDATOR_MINLENGTH,VALIDATOR_REQUIRE} from '../components/FormElements/validators';
 import Button from '../components/FormElements/Button';
 import { useForm } from '../hooks/form-hook';
+import { useDispatch } from 'react-redux';
+import { Login } from '../redux/actions/loggedIn';
+import { useNavigate} from 'react-router-dom';
 
 import './AuthPage.css';
 
 function Auth() {
+
+    const navigate=useNavigate()
+
+    const dispatch=useDispatch();
 
     const [isLoginMode,setIsLoginMode]=useState(true)
 
@@ -26,6 +33,9 @@ function Auth() {
     const authSubmitHandler=async (e)=>{
         e.preventDefault();
         console.log(formState.inputs)
+
+        dispatch(Login('Abd','ABD','ABD','ABD'))
+        navigate('/',{replace:true})
         
     }
 

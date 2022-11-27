@@ -4,6 +4,7 @@ import BookingPage from "./pages/BookingPage";
 import AuthPage from "./pages/AuthPage";
 import TripsPage from "./pages/TripsPage";
 import MainNavigation from "./components/Navigation/MainNavigation";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   return (
@@ -13,10 +14,11 @@ function App() {
     <Routes>
       <Route index element={<HomePage/>}/>
       <Route path="/auth" element={<AuthPage/>}/>
-      <Route path="/booking" element={<BookingPage/>}/>
+      <Route path="/:pid/booking" element={<BookingPage/>}/>
       <Route path="/trip" element={<TripsPage/>}/>
     </Routes>
     </main>
+    <Footer/>
     </BrowserRouter>
   );
 }

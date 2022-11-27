@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-
 import Card from '../UIElements/Card';
 import Button from '../FormElements/Button';
 import Modal from 'react-bootstrap/Modal'
+import { useNavigate} from 'react-router-dom';
 import './PlaceItem.css';
 
 const PlaceItem = props => {
 
-
+  const navigate=useNavigate()
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
  
@@ -22,6 +22,8 @@ const PlaceItem = props => {
   const confirmBookingHandler = () => {
     setShowConfirmModal(false);
     //booking logic here
+    navigate(`/${props.id}/booking`,{replace:true})
+   
   };
 
   return (
