@@ -4,20 +4,23 @@ import Input from '../components/FormElements/Input';
 import {VALIDATOR_EMAIL,VALIDATOR_MINLENGTH,VALIDATOR_REQUIRE} from '../components/FormElements/validators';
 import Button from '../components/FormElements/Button';
 import { useForm } from '../hooks/form-hook';
-import { useDispatch } from 'react-redux';
+import { useDispatch} from 'react-redux';
 import { Login } from '../redux/actions/loggedIn';
 import { useNavigate} from 'react-router-dom';
+import {useHttpClient} from '../hooks/http-hook';
+import LoadingSpinner from '../components/UIElements/LoadingSpinner';
 
 import './AuthPage.css';
 
 function Auth() {
+
+    const {isloading,error,sendRequest}=useHttpClient();    
 
     const navigate=useNavigate()
 
     const dispatch=useDispatch();
 
     const [isLoginMode,setIsLoginMode]=useState(true)
-
 
    const[formState,inputHandler,setFormData] =useForm({
         email:{
@@ -33,10 +36,32 @@ function Auth() {
     const authSubmitHandler=async (e)=>{
         e.preventDefault();
         console.log(formState.inputs)
-
+        if(isLoginMode)
+        {
         dispatch(Login('Abd','ABD','ABD','ABD'))
         navigate('/',{replace:true})
+        }
+        if(!isLoginMode)
+        {
+            try {
+                const responseData=await sendRequest('http://localhost:5000/api/users/signup',
+                'POST',
+                JSON.stringify({
+                    email:formState.inputs.email.value,
+                    password:formState.inputs.password.value,
+                    name:formState.inputs.name.value
+                }),{'Content-Type':'application/json'}
+                )
+                dispatch(Login(
+                    responseData.name,responseData.email,responseData.userId,responseData.token
+                    ))
+                navigate('/',{replace:true})
+            } catch (error) {
+                console.log(error)
+            }
+        }
         
+
     }
 
     // used to switch between login and signup
@@ -68,6 +93,16 @@ function Auth() {
     <React.Fragment>
         
     <Card className="authentication">
+        {
+            error&&(
+                <div className="alert alert-danger" role="alert">
+                    {error}
+                </div>
+            )
+        }
+        {
+            isloading&&<LoadingSpinner asOverlay/>
+        }
         <form onSubmit={authSubmitHandler}>
             {
                 isLoginMode?
