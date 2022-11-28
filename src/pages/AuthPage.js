@@ -36,11 +36,11 @@ function Auth() {
     const authSubmitHandler=async (e)=>{
         e.preventDefault();
         console.log(formState.inputs)
-        if(isLoginMode)
-        {
-        dispatch(Login('Abd','ABD','ABD','ABD'))
-        navigate('/',{replace:true})
-        }
+        // if(isLoginMode)
+        // {
+        // dispatch(Login('Abd','ABD','ABD','ABD'))
+        // navigate('/',{replace:true})
+        // }
         if(!isLoginMode)
         {
             try {
@@ -60,8 +60,26 @@ function Auth() {
                 console.log(error)
             }
         }
-        
-
+        else
+        {
+            try 
+            {
+                const responseData=await sendRequest('http://localhost:5000/api/users/login','POST',
+                JSON.stringify({
+                    email:formState.inputs.email.value,
+                    password:formState.inputs.password.value
+                    }),{'Content-Type':'application/json'},
+                 );
+                 dispatch(Login(
+                    responseData.name,responseData.email,responseData.userId,responseData.token
+                    ))
+                navigate('/',{replace:true})
+            } 
+            catch(e)
+            {
+                console.log(error);
+            }   
+        }
     }
 
     // used to switch between login and signup
