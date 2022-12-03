@@ -4,14 +4,15 @@ import Info from '../components/HomePage/Info'
 import TopPlacesList from '../components/HomePage/TopPlacesList'
 import {useSelector}  from 'react-redux';
 const HomePage = () => {
-  const c=useSelector((state=>state))
-  console.log(c)
+  const userData=useSelector((state=>state))
+  console.log(userData)
   return (
-    <React.Fragment>
+    <div>
       <Slideshow/>
+      
       <Info/>
       <TopPlacesList/>
-    </React.Fragment>
+    </div>
   )
 }
 

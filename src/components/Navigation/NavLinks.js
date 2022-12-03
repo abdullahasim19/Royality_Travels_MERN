@@ -27,8 +27,9 @@ export default function NavLinks(props) {
       {
         loginState.login&&(
           <li>
-          <NavLink to='/history'>History</NavLink>
+          <NavLink to={`/${loginState.userid}/history`}>History</NavLink>
         </li>
+        
         )
       }
      {

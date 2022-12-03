@@ -21,12 +21,12 @@ const PlaceList = props => {
         <PlaceItem
           key={place.id}
           id={place.id}
-          image={place.imageUrl}
-          title={place.title}
+          image={place.image}
+          name={place.name}
           description={place.description}
-          address={place.address}
-          creatorId={place.creator}
-          coordinates={place.location}
+          startDate={place.startDate}
+          endDate={place.endDate}
+          seats={place.seats}
         />
       ))}
     </ul>

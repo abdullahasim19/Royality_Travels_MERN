@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Info = () => {
   return (
@@ -13,7 +14,7 @@ const Info = () => {
         inspired hundreds of people. So what are you waiting for? Select your type of 
         adventure and get on-board! Bon Voyage!
     </p>
-    <a className="btn btn-dark " href=' ' data-toggle="tooltip" title="Click here to Create Account!" role="button">Get Started!</a>
+    <Link to='/auth' className="btn btn-dark " href=' ' data-toggle="tooltip" title="Click here to Create Account!" role="button">Get Started!</Link>
    
   </div>
 </div>    
