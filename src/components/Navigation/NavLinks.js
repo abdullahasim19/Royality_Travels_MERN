@@ -35,7 +35,7 @@ export default function NavLinks(props) {
      {
       loginState.login&&(
         <li>
-        <NavLink to='/wishlist'>Wishlist</NavLink>
+        <NavLink to={`/${loginState.userid}/wishlist`}>Wishlist</NavLink>
       </li>
       )
      }

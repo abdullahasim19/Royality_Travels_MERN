@@ -41,7 +41,7 @@ const BookingPage = () => {
     <div>
      <div className="container mt-3">
     
-    <div className="jumbotron " style={{backgroundColor: 'lightgray'}}>
+    <div className="jumbotron " style={{backgroundColor: 'lightblue'}}>
       <div className="container">
         <h1 className="text-center">{data.state.name}</h1>
         <h2 className='text-center'>Available Seats: {data.state.seats}</h2>

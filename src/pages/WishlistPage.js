@@ -1,25 +1,31 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect,useState } from 'react'
 import { useHttpClient } from '../hooks/http-hook'
 import LoadingSpinner from '../components/UIElements/LoadingSpinner'
 import { useSelector } from 'react-redux'
-import HistoryCardList from '../components/History/HistoryCardList'
+import WishlistCardList from '../components/Wishlist/WishlistCardList';
 
-const HistoryPage = () => {
+const WishlistPage = () => {
     const userData = useSelector((state => state))
     const { isloading, error, sendRequest } = useHttpClient();
-    const [historyLoaded, setHistoryLoaded] = useState([]);
+    const [wishlistLoaded,setwishlistLoaded]=useState([]);
+    const onDelete=(id)=>{
+        setwishlistLoaded((prev)=>{
+            return prev.filter(p=>p._id!==id)
+        })
+    }
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const responseData = await sendRequest(`http://localhost:5000/api/users/${userData.userid}/history`)
-                setHistoryLoaded(responseData.userHist)
-                console.log(responseData.userHist)
+                const responseData = await sendRequest(`http://localhost:5000/api/users/${userData.userid}/wishlist`)
+                setwishlistLoaded(responseData.userWish)
+                console.log(responseData.userWish)
             } catch (error) {
                 console.log(error)
             }
         }
         fetchData();
-    }, [sendRequest, userData.userid])
+    },[sendRequest,userData.userid])
+
     return (
         <div>
             {
@@ -34,27 +40,27 @@ const HistoryPage = () => {
             }
             {
                 isloading && (
-                    <div className='text-center'>
-                        <LoadingSpinner />
-                    </div>
+                <div className='text-center'>
+                <LoadingSpinner />
+                </div>
                 )
             }
             {
-                historyLoaded.length>0 ? (
-                    <HistoryCardList list={historyLoaded} />
-                ) : (
+                wishlistLoaded.length>0?(
+                    <WishlistCardList list={wishlistLoaded} onDelete={onDelete} />
+                ):(
                     <div className='text-danger text-center'>
-                       <h1>History Empty</h1>
+                       <h1>Wishlist Empty</h1>
                        <br/><br/><br/><br/>
                        <br/><br/><br/><br/>
                        <br/>
                     </div>
                 )
             }
-
+            
         </div>
 
     )
 }
 
-export default HistoryPage
+export default WishlistPage
