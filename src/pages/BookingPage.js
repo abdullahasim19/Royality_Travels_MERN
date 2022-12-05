@@ -26,7 +26,9 @@ const BookingPage = () => {
         'POST',
         JSON.stringify({
           seats: formState.inputs.seats.value
-        }), { 'Content-Type': 'application/json' }
+        }), { 'Content-Type': 'application/json',
+        Authorization:'Bearer '+userData.token
+      }
       )
       navigate('/trip',{state:responseData.message})
         

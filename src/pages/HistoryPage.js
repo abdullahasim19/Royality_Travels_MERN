@@ -13,15 +13,21 @@ const HistoryPage = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const responseData = await sendRequest(`http://localhost:5000/api/users/${userData.userid}/history`)
+                const responseData = await sendRequest(
+                    `http://localhost:5000/api/users/${userData.userid}/history`,
+                    'GET',
+                    null,
+                    {
+                        Authorization:'Bearer '+userData.token
+                    }
+                    )
                 setHistoryLoaded(responseData.userHist)
-                console.log(responseData.userHist)
             } catch (error) {
                 console.log(error)
             }
         }
         fetchData();
-    }, [sendRequest, userData.userid])
+    }, [sendRequest, userData.userid,userData.token])
     return (
         <div>
             {
@@ -52,9 +58,13 @@ const HistoryPage = () => {
                 )
             }
             {
-                historyLoaded.length > 0 ? (
+                historyLoaded.length > 0 && (
                     <HistoryCardList list={historyLoaded} />
-                ) : (
+                ) 
+            }
+            {
+                (historyLoaded.length===0||!historyLoaded)&&!isloading&&
+                (
                     <div className='text-danger text-center'>
                         <h1>History Empty</h1>
                         <br /><br /><br /><br />

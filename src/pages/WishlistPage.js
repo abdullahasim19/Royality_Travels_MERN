@@ -16,15 +16,21 @@ const WishlistPage = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const responseData = await sendRequest(`http://localhost:5000/api/users/${userData.userid}/wishlist`)
+                const responseData = await sendRequest(
+                    `http://localhost:5000/api/users/${userData.userid}/wishlist`,
+                    'GET',
+                    null,
+                    {
+                        Authorization:'Bearer '+userData.token
+                    }
+                    )
                 setwishlistLoaded(responseData.userWish)
-                console.log(responseData.userWish)
             } catch (error) {
                 console.log(error)
             }
         }
         fetchData();
-    },[sendRequest,userData.userid])
+    },[sendRequest,userData.userid,userData.token])
 
     return (
         <div>
@@ -46,9 +52,12 @@ const WishlistPage = () => {
                 )
             }
             {
-                wishlistLoaded.length>0?(
+                wishlistLoaded.length>0&&(
                     <WishlistCardList list={wishlistLoaded} onDelete={onDelete} />
-                ):(
+                )
+            }
+            {
+                wishlistLoaded.length===0&&!isloading&&(
                     <div className='text-danger text-center'>
                        <h1>Wishlist Empty</h1>
                        <br/><br/><br/><br/>

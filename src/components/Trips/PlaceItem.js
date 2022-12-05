@@ -39,7 +39,11 @@ const PlaceItem = props => {
     setShowWishlistModal(false)
     try {
       const responseData = await sendRequest(`http://localhost:5000/api/trips/${userData.userid}/${props.id}/wishlist`,
-        'POST'
+        'POST',
+        null,
+        {
+          Authorization: 'Bearer ' + userData.token
+        }
       )
       setWishlistData(responseData.message)
     } catch (error) {

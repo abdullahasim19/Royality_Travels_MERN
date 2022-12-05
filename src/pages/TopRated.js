@@ -17,18 +17,6 @@ const TopRated = () => {
         }
         fetchData();
     }, [sendRequest])
-    // const DUMMY = [
-    //     {
-    //         name: 'ABD',
-    //         rating: 5,
-    //         review: "Very"
-    //     },
-    //     {
-    //         name: 'ABD',
-    //         rating: 5,
-    //         review: "Very"
-    //     }
-    // ]
     return (
         <div>
             {
@@ -49,12 +37,14 @@ const TopRated = () => {
                 )
             }
             {
-                allReviews.length > 0 ? <ReviewsList reviewlist={allReviews} />
-                    : (
-                        <div className='text-center text-danger'>
-                            <h1>No Reviews yet!</h1>
-                        </div>
-                    )
+                allReviews.length > 0&&<ReviewsList reviewlist={allReviews} />
+            }
+            {
+                allReviews.length===0&&!isloading&&(
+                    <div className='text-center text-danger'>
+                        <h1>No Reviews yet!</h1>
+                    </div>
+                )
             }
         </div>
     )

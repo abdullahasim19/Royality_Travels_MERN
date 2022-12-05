@@ -12,7 +12,10 @@ const WishlistCard = (props) => {
         try {
             const responseData = await sendRequest
                 (`http://localhost:5000/api/trips/${userData.userid}/${props.id}/wishlist`,
-                    'DELETE', null
+                    'DELETE', null,
+                    {
+                        Authorization:'Bearer '+userData.token
+                    }
                 )
             console.log(responseData)
             props.onDelete(props.id)

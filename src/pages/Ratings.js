@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React, { useState } from 'react'
 import StarRating from '../components/FormElements/StarRating';
 import { useForm } from '../hooks/form-hook';
 import Input from '../components/FormElements/Input';
@@ -12,70 +12,72 @@ import { useSelector } from 'react-redux';
 import './PlaceForm.css';
 
 const Ratings = () => {
-  const navigate=useNavigate();
-  const tripid=useParams().pid;
-  const {isloading,error,sendRequest}=useHttpClient(); 
-  const [star,setStar]=useState(0);
+  const navigate = useNavigate();
+  const tripid = useParams().pid;
+  const { isloading, error, sendRequest } = useHttpClient();
+  const [star, setStar] = useState(0);
   const userData = useSelector((state => state))
-  const onSubmitHandler=async(e)=>{
+  const onSubmitHandler = async (e) => {
     e.preventDefault();
-     console.log(star)
-     console.log(formState.inputs.review.value)
     try {
-      const responseData=await sendRequest(
+      const responseData = await sendRequest(
         `http://localhost:5000/api/trips/${userData.userid}/${tripid}/rating`,
-      'POST',
-      JSON.stringify({
-        rating:star,
-        review:formState.inputs.review.value
-      }),{'Content-Type':'application/json'}
+        'POST',
+        JSON.stringify({
+          rating: star,
+          review: formState.inputs.review.value
+        }), {
+          'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + userData.token
+
+      }
       );
-      navigate(`/${userData.userid}/history`,{state:responseData.message})
+      navigate(`/${userData.userid}/history`, { state: responseData.message })
     } catch (error) {
       console.log(error)
     }
 
   }
-    const getRating=(rating)=>{
-        setStar(rating)
+  const getRating = (rating) => {
+    setStar(rating)
+  }
+  const [formState, inputHandler] = useForm({
+    review: {
+      value: '',
+      isValid: false
     }
-    const [formState, inputHandler] = useForm({
-      review: {
-        value: '',
-        isValid: false
-      }
-    }, false)
+  }, false)
   return (
     <form className='place-form' onSubmit={onSubmitHandler}>
       <div className='text-danger text-center'>
-        <h4>Rate your experience: <span> <StarRating getRating={getRating}/></span></h4>
+        <h4>Rate your experience: <span> <StarRating getRating={getRating} /></span></h4>
       </div>
       {
-          error && (
-            <div className="alert alert-danger alert-dismissible fade show" role="alert">
-              {error}
-              <button type="button" className="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-          )
-        }
-        {
-          isloading && <LoadingSpinner asOverlay />
-        }
-     
-    <Input
-      id="review"
-      element="textarea" label="Give Review" errorText="Invalid Review"
-      validators={[VALIDATOR_REQUIRE()]}
-      onInput={inputHandler}
-    />
-    <Button type="submit" disabled={!formState.isValid} >
-      Give Review
-    </Button>
+        error && (
+          <div className="alert alert-danger alert-dismissible fade show" role="alert">
+            {error}
+            <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        )
+      }
+      {
+        isloading && <LoadingSpinner asOverlay />
+      }
 
-  </form>
-   
+      <Input
+        id="review"
+        element="textarea" label="Give Review" errorText="Invalid Review"
+        validators={[VALIDATOR_REQUIRE()]}
+        onInput={inputHandler}
+      />
+      <Button type="submit" disabled={!formState.isValid} >
+        Give Review
+      </Button>
+
+    </form>
+
   )
 }
 

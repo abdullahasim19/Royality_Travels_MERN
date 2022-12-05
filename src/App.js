@@ -10,6 +10,7 @@ import HistoryPage from "./pages/HistoryPage";
 import WishlistPage from "./pages/WishlistPage";
 import Ratings from "./pages/Ratings";
 import TopRated from "./pages/TopRated";
+import ErrorPage from "./pages/ErrorPage";
 
 function App() {
   const userData = useSelector((state => state))
@@ -24,6 +25,7 @@ function App() {
       <Route path='/:uid/wishlist' element={<WishlistPage/>} />
       <Route path="/:pid/rating" element={<Ratings/>}/>
       <Route path="/toprated" element={<TopRated/>}/>
+      <Route path="*" element={<ErrorPage/>}/>
     </Routes>)
   }
   else
@@ -34,6 +36,7 @@ function App() {
       <Route path="/trip" element={<TripsPage/>}/>
       <Route path="/toprated" element={<TopRated/>}/>
       <Route path="/auth" element={<AuthPage/>}/>
+      <Route path="*" element={<ErrorPage/>}/>
     </Routes>)
   }
   return (
