@@ -35,7 +35,7 @@ function Auth() {
 
     const authSubmitHandler = async (e) => {
         e.preventDefault();
-        console.log(formState.inputs)
+        //console.log(formState.inputs)
         // if(isLoginMode)
         // {
         // dispatch(Login('Abd','ABD','ABD','ABD'))
@@ -54,6 +54,13 @@ function Auth() {
                 dispatch(Login(
                     responseData.name, responseData.email, responseData.userId, responseData.token
                 ))
+                localStorage.setItem('userStatus',JSON.stringify({
+                    name: responseData.name,
+                    email: responseData.email,
+                    userid: responseData.userId,
+                    token: responseData.token
+                }
+                ))
                 navigate('/', { replace: true })
             } catch (error) {
                 console.log(error)
@@ -67,13 +74,21 @@ function Auth() {
                         password: formState.inputs.password.value
                     }), { 'Content-Type': 'application/json' },
                 );
+                localStorage.setItem('userStatus',JSON.stringify({
+                    name: responseData.name,
+                    email: responseData.email,
+                    userid: responseData.userId,
+                    token: responseData.token
+                }
+                ))
                 dispatch(Login(
                     responseData.name, responseData.email, responseData.userId, responseData.token
                 ))
+               
                 navigate('/', { replace: true })
             }
             catch (e) {
-                console.log(error);
+                console.log(e);
             }
         }
     }

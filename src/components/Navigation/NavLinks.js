@@ -11,6 +11,7 @@ export default function NavLinks(props) {
   const navigate = useNavigate()
   const logoutHandler = () => {
     dispatch(Logout())
+    localStorage.removeItem('userStatus');
     navigate('/', { replace: true })
   }
 

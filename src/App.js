@@ -4,15 +4,31 @@ import BookingPage from "./pages/BookingPage";
 import AuthPage from "./pages/AuthPage";
 import TripsPage from "./pages/TripsPage";
 import MainNavigation from "./components/Navigation/MainNavigation";
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
+import { Login } from "./redux/actions/loggedIn";
 import Footer from "./components/Footer/Footer";
 import HistoryPage from "./pages/HistoryPage";
 import WishlistPage from "./pages/WishlistPage";
 import Ratings from "./pages/Ratings";
 import TopRated from "./pages/TopRated";
 import ErrorPage from "./pages/ErrorPage";
+import React,{useEffect} from 'react';
 
 function App() {
+  const dispatch=useDispatch();
+  useEffect(()=>{
+    const storedData=JSON.parse(localStorage.getItem('userStatus'));
+    if(storedData)
+    {
+      if(storedData.token)
+      {
+        dispatch(Login(
+          storedData.name, storedData.email, storedData.userId, storedData.token
+      ))
+      }
+    }
+  },[dispatch])
+
   const userData = useSelector((state => state))
   let routes;
   if(userData.login){
