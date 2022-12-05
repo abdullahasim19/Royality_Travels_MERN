@@ -22,7 +22,7 @@ export default function NavLinks(props) {
         <NavLink to='/trip'>Trips</NavLink>
       </li>
       <li>
-        <NavLink to='/rating'>Top Rated</NavLink>
+        <NavLink to='/toprated'>Top Rated</NavLink>
       </li>
       {
         loginState.login&&(

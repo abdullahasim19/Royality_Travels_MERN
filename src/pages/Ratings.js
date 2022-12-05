@@ -4,6 +4,7 @@ import { useForm } from '../hooks/form-hook';
 import Input from '../components/FormElements/Input';
 import Button from '../components/FormElements/Button';
 import LoadingSpinner from '../components/UIElements/LoadingSpinner';
+import { useNavigate } from 'react-router-dom';
 import { useHttpClient } from '../hooks/http-hook';
 import { useParams } from 'react-router-dom';
 import { VALIDATOR_REQUIRE } from '../components/FormElements/validators';
@@ -11,7 +12,7 @@ import { useSelector } from 'react-redux';
 import './PlaceForm.css';
 
 const Ratings = () => {
-
+  const navigate=useNavigate();
   const tripid=useParams().pid;
   const {isloading,error,sendRequest}=useHttpClient(); 
   const [star,setStar]=useState(0);
@@ -29,7 +30,7 @@ const Ratings = () => {
         review:formState.inputs.review.value
       }),{'Content-Type':'application/json'}
       );
-      console.log(responseData)
+      navigate(`/${userData.userid}/history`,{state:responseData.message})
     } catch (error) {
       console.log(error)
     }
@@ -75,8 +76,6 @@ const Ratings = () => {
 
   </form>
    
-      
-
   )
 }
 

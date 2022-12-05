@@ -3,8 +3,10 @@ import { useHttpClient } from '../hooks/http-hook'
 import LoadingSpinner from '../components/UIElements/LoadingSpinner'
 import { useSelector } from 'react-redux'
 import HistoryCardList from '../components/History/HistoryCardList'
+import { useLocation } from 'react-router-dom'
 
 const HistoryPage = () => {
+    const loc = useLocation();
     const userData = useSelector((state => state))
     const { isloading, error, sendRequest } = useHttpClient();
     const [historyLoaded, setHistoryLoaded] = useState([]);
@@ -40,14 +42,24 @@ const HistoryPage = () => {
                 )
             }
             {
-                historyLoaded.length>0 ? (
+                loc.state && (
+                    <div className="alert alert-success alert-dismissible fade show" role="alert">
+                        {loc.state}
+                        <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                )
+            }
+            {
+                historyLoaded.length > 0 ? (
                     <HistoryCardList list={historyLoaded} />
                 ) : (
                     <div className='text-danger text-center'>
-                       <h1>History Empty</h1>
-                       <br/><br/><br/><br/>
-                       <br/><br/><br/><br/>
-                       <br/>
+                        <h1>History Empty</h1>
+                        <br /><br /><br /><br />
+                        <br /><br /><br /><br />
+                        <br />
                     </div>
                 )
             }
