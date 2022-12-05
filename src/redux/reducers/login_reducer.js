@@ -16,6 +16,12 @@ const login_reducer = (state={login:false},action) => {
             userid:null,
             token:null
         }
+    case 'editProfile':
+        return{
+            ...state,
+            name:action.payload.name,
+            email:action.payload.email
+        }
     default:
         return state;
   }

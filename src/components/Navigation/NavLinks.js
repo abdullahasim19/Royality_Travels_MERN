@@ -40,6 +40,13 @@ export default function NavLinks(props) {
       </li>
       )
      }
+      {
+      loginState.login&&(
+        <li>
+        <NavLink to={'/edit'}>Edit Profile</NavLink>
+      </li>
+      )
+     }
      
       {
         !loginState.login && (

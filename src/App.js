@@ -9,6 +9,7 @@ import { Login } from "./redux/actions/loggedIn";
 import Footer from "./components/Footer/Footer";
 import HistoryPage from "./pages/HistoryPage";
 import WishlistPage from "./pages/WishlistPage";
+import EditProfile from "./pages/EditProfile";
 import Ratings from "./pages/Ratings";
 import TopRated from "./pages/TopRated";
 import ErrorPage from "./pages/ErrorPage";
@@ -23,7 +24,7 @@ function App() {
       if(storedData.token)
       {
         dispatch(Login(
-          storedData.name, storedData.email, storedData.userId, storedData.token
+          storedData.name, storedData.email, storedData.userid, storedData.token
       ))
       }
     }
@@ -41,6 +42,7 @@ function App() {
       <Route path='/:uid/wishlist' element={<WishlistPage/>} />
       <Route path="/:pid/rating" element={<Ratings/>}/>
       <Route path="/toprated" element={<TopRated/>}/>
+      <Route path="/edit" element={<EditProfile/>}/>
       <Route path="*" element={<ErrorPage/>}/>
     </Routes>)
   }
