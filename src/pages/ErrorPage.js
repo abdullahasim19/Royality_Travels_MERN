@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Card from '../components/UIElements/Card';
 import './ErrorPage.css';
 
 const ErrorPage = () => {
     return (
         <div className="container">
+            <Card>
             <div className="row">
                 <div className="col-md-12">
                     <div className="error-template">
@@ -20,6 +22,7 @@ const ErrorPage = () => {
                     </div>
                 </div>
             </div>
+            </Card>
         </div>
 
     )

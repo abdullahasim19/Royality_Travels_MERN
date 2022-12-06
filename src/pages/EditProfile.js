@@ -86,7 +86,7 @@ const EditProfile = () => {
                 />
                 <Input
                     id="password"
-                    element="input" type="password" label="Enter Password" errorText="Invalid Password"
+                    element="input" type="password" label="Enter Password" errorText="Please enter a valid password, atleast 5 characters"
                     validators={[VALIDATOR_MINLENGTH(5)]}
                     onInput={inputHandler}
                 />

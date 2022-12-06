@@ -43,6 +43,9 @@ const TopRated = () => {
                 allReviews.length===0&&!isloading&&(
                     <div className='text-center text-danger'>
                         <h1>No Reviews yet!</h1>
+                        <br /><br /><br /><br />
+                        <br /><br /><br /><br />
+                        <br />
                     </div>
                 )
             }
