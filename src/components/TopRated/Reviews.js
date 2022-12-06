@@ -7,7 +7,7 @@ const Reviews = (props) => {
                 <div className="d-flex flex-column">
                     <h3 className="mt-2 mb-0 text-light">Given by: {props.name}</h3>
                     <div>
-                        <h5 className="text-left"><span class="text-light">Rating: {props.rating}.0</span> </h5>
+                        <h5 className="text-left"><span className="text-light">Rating: {props.rating}.0</span> </h5>
                     </div>
                 </div>
 

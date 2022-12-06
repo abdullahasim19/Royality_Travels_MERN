@@ -11,7 +11,7 @@ const HistoryCard = (props) => {
                     <h4 className='text-dark'>End Date: {props.endDate}</h4>
                     <p className='text-dark'>Seats Booked: {props.seats}</p>
                     {
-                        !props.rated?<Button to={`/${props.id}/rating`} >Rate trip</Button>:(
+                        !props.rated?<Button danger to={`/${props.id}/rating`}  >Rate trip</Button>:(
                             <h3 className='text-danger'>Trip Already Rated!</h3>
                         )
                     }
