@@ -5,7 +5,10 @@ const mongoose=require('mongoose')
 const app=express()
 const usersroutes=require('./routes/user-routes');
 const tripsroutes=require('./routes/trip-routes')
-const connectionString=`mongodb+srv://abdullah:Leomessi10@cluster0.4oyzq.mongodb.net/Royality_Travels?retryWrites=true&w=majority`
+const dotenv = require('dotenv');
+dotenv.config();
+
+const connectionString=`mongodb+srv://${process.env.DB_USER_NAME}:${process.env.DB_PASSWORD}@cluster0.4oyzq.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`
 app.use(bodyParser.json());
 
 app.use((req,res,next)=>{
